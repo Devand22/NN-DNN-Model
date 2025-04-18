@@ -17,7 +17,7 @@ st.markdown("Aplikasi ini membandingkan hasil prediksi dari dua model: **ANN** d
 try:
     model_ann = load_model("model_ann.h5")
     model_dnn = load_model("model_dnn.h5")
-    scaler = pickle.load(open("scaler.pkl", "rb"))
+    scaler = joblib.load("scaler.pkl")
 except Exception as e:
     st.error(f"Gagal memuat model atau scaler: {e}")
     st.stop()
