@@ -108,8 +108,8 @@ if submitted:
         st.markdown("- Jaga berat badan ideal dan BMI normal")
         st.markdown("- Cek kadar gula darah dan HbA1c secara berkala")
         st.markdown("- Hindari merokok dan minuman beralkohol")
-        st.write(f"Nilai probabilitas ANN: {pred_ann}")
-        st.write(f"Nilai probabilitas DNN: {pred_dnn}")
+        st.write(f"Nilai probabilitas ANN: {prob_ann}")
+        st.write(f"Nilai probabilitas DNN: {prob_dnn}")
 
 
     except Exception as e:
