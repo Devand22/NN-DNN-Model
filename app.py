@@ -62,7 +62,7 @@ if submitted:
     ]).reshape(1, -1)
 
     try:
-        scaled_input = input_array
+        scaled_input = scaler.transform(input_array)
         prob_ann = model_ann.predict(scaled_input)[0][0]
         prob_dnn = model_dnn.predict(scaled_input)[0][0]
 
