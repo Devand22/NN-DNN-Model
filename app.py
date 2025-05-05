@@ -3,6 +3,8 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
+import torch
+from pytorch_tabnet.tab_model import TabNetClassifier
 from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
 from datetime import datetime
@@ -13,11 +15,13 @@ from datetime import datetime
 st.set_page_config(page_title="Prediksi Diabetes", layout="centered")
 
 st.title("Prediksi Risiko Diabetes")
-st.markdown("Aplikasi ini membandingkan hasil prediksi dari dua model: **ANN** dan **DNN**.")
+st.markdown("Aplikasi ini membandingkan hasil prediksi dari tiga model: **ANN**, **DNN**, dan **TabTransformer**.")
 
 try:
     model_ann = load_model("model_ann.h5")
     model_dnn = load_model("model_dnn.h5")
+    model_tab = TabNetClassifier()
+    model_tab.load_model("tabnet_model")
     scaler = joblib.load("scaler.pkl")
 except Exception as e:
     st.error(f"Gagal memuat model atau scaler: {e}")
@@ -51,7 +55,7 @@ def interpret(prob):
         return "Risiko Rendah"
 
 if submitted:
-    input_array = np.array([
+    input_array = np.array([[
         1 if gender == "Laki-Laki" else 0,
         age,
         1 if hypertension == "Ya" else 0,
@@ -60,12 +64,13 @@ if submitted:
         bmi,
         hba1c_level,
         glucose
-    ]).reshape(1, -1)
+    ]])
 
     try:
         scaled_input = scaler.transform(input_array)
         prob_ann = model_ann.predict(scaled_input)[0][0]
         prob_dnn = model_dnn.predict(scaled_input)[0][0]
+        prob_tab = model_tab.predict_proba(scaled_input)[0][1]  # prob kelas 1 (berisiko)
 
         # =============================
         # Tabel Input
@@ -89,15 +94,16 @@ if submitted:
         st.subheader("Hasil Prediksi")
         st.write(f"📘 **ANN**: {'Berisiko Diabetes' if prob_ann >= 0.5 else 'Tidak Berisiko'} ({prob_ann:.2f}) → *{interpret(prob_ann)}*")
         st.write(f"📗 **DNN**: {'Berisiko Diabetes' if prob_dnn >= 0.5 else 'Tidak Berisiko'} ({prob_dnn:.2f}) → *{interpret(prob_dnn)}*")
+        st.write(f"📙 **TabTransformer**: {'Berisiko Diabetes' if prob_tab >= 0.5 else 'Tidak Berisiko'} ({prob_tab:.2f}) → *{interpret(prob_tab)}*")
 
         # =============================
         # Visualisasi Bar Chart
         # =============================
         fig, ax = plt.subplots()
-        ax.bar(["ANN", "DNN"], [prob_ann, prob_dnn], color=["skyblue", "lightgreen"])
+        ax.bar(["ANN", "DNN", "TabTransformer"], [prob_ann, prob_dnn, prob_tab], color=["skyblue", "lightgreen", "orange"])
         ax.set_ylim(0, 1)
         ax.set_ylabel("Probabilitas")
-        ax.set_title("Perbandingan Prediksi ANN vs DNN")
+        ax.set_title("Perbandingan Prediksi ANN vs DNN vs TabTransformer")
         st.pyplot(fig)
 
         # =============================
@@ -109,9 +115,6 @@ if submitted:
         st.markdown("- Jaga berat badan ideal dan BMI normal")
         st.markdown("- Cek kadar gula darah dan HbA1c secara berkala")
         st.markdown("- Hindari merokok dan minuman beralkohol")
-        st.write(f"Nilai probabilitas ANN: {prob_ann}")
-        st.write(f"Nilai probabilitas DNN: {prob_dnn}")
-
 
     except Exception as e:
         st.error(f"Terjadi kesalahan saat prediksi: {e}")
