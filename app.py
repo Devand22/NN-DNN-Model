@@ -21,7 +21,7 @@ try:
     model_ann = load_model("model_ann.h5")
     model_dnn = load_model("model_dnn.h5")
     model_tab = TabNetClassifier()
-    model_tab.load_model("tabnet_model")
+    model_tab.load_model("tabnet_model.zip")
     scaler = joblib.load("scaler.pkl")
 except Exception as e:
     st.error(f"Gagal memuat model atau scaler: {e}")
