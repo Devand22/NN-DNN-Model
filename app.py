@@ -168,7 +168,6 @@ if submitted:
             - Cek kesehatan rutin
             """)
 
-        st.image(caption="Jaga kesehatan yuk!")
 
     except Exception as e:
         st.error(f"Waduh error nih: {e}")
