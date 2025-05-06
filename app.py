@@ -94,13 +94,11 @@ if submitted:
     ]])
 
     try:
-        scaled_data = data_scaler.transform(user_data)
-
-        # Get predictions from our AI doctors
-        dr_ann_pred = dr_ann.predict(scaled_data)[0][0]
-        dr_dnn_pred = dr_dnn.predict(scaled_data)[0][0]
-        dr_tab_pred = dr_tab.predict_proba(scaled_data)[0][1]
-
+        scaled_input = scaler.transform(input_array)
+        prob_ann = model_ann.predict(scaled_input)[0][0]
+        prob_dnn = model_dnn.predict(scaled_input)[0][0]
+        prob_tab = model_tab.predict_proba(scaled_input)[0][1]
+        
         # Show user's data
         st.subheader("📋 Data yang Kamu Masukkan")
         user_df = pd.DataFrame({
