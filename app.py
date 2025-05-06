@@ -82,7 +82,7 @@ if submitted:
             "Hipertensi": hypertension,
             "Penyakit Jantung": heart_disease,
             "Riwayat Merokok": smoking_history,
-            "BMI": bmi,
+            "BMI (Indeks Massa Tubuh)": bmi,
             "HbA1c": hba1c_level,
             "Glukosa": glucose
         }])
