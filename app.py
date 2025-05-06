@@ -114,17 +114,17 @@ if submitted:
 
         col1, col2, col3 = st.columns(3)
         with col1:
-        st.metric(label="Dokter ANN",
-             value=f"{prob_ann*100:.1f}%",  # Changed from dr_ann_pred
-             help=interpret_risk(prob_ann))  # Changed from dr_ann_pred
+            st.metric(label="Dokter ANN",
+                 value=f"{prob_ann*100:.1f}%",  # Changed from dr_ann_pred
+                 help=interpret_risk(prob_ann))  # Changed from dr_ann_pred
         with col2:
-        st.metric(label="Dokter DNN",
-             value=f"{prob_dnn*100:.1f}%",  # Changed from dr_dnn_pred
-             help=interpret_risk(prob_dnn))  # Changed from dr_dnn_pred
+            st.metric(label="Dokter DNN",
+                 value=f"{prob_dnn*100:.1f}%",  # Changed from dr_dnn_pred
+                 help=interpret_risk(prob_dnn))  # Changed from dr_dnn_pred
         with col3:
-        st.metric(label="Dokter Tab",
-             value=f"{prob_tab*100:.1f}%",  # Changed from dr_tab_pred
-             help=interpret_risk(prob_tab))  # Changed from dr_tab_pred
+            st.metric(label="Dokter Tab",
+                 value=f"{prob_tab*100:.1f}%",  # Changed from dr_tab_pred
+                 help=interpret_risk(prob_tab))  # Changed from dr_tab_pred
 
         # Visual comparison
         st.subheader("📊 Perbandingan Hasil")
