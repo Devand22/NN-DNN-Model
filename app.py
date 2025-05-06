@@ -82,7 +82,7 @@ if submitted:
     st.balloons()  # Fun celebration!
 
     # Prepare data
-    user_data = np.array([[
+    input_array = np.array([[
         1 if gender == "Laki-Laki" else 0,
         age,
         1 if hypertension == "Ya" else 0,
