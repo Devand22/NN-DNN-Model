@@ -168,8 +168,7 @@ if submitted:
             - Cek kesehatan rutin
             """)
 
-        st.image("https://media.giphy.com/media/LHZyixOnHwDDy/giphy.gif",
-                caption="Jaga kesehatan yuk!")
+        st.image(caption="Jaga kesehatan yuk!")
 
     except Exception as e:
         st.error(f"Waduh error nih: {e}")
