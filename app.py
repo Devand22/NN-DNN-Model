@@ -114,23 +114,23 @@ if submitted:
 
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.metric(label="Dokter ANN",
-                     value=f"{dr_ann_pred*100:.1f}%",
-                     help=interpret_risk(dr_ann_pred))
+        st.metric(label="Dokter ANN",
+             value=f"{prob_ann*100:.1f}%",  # Changed from dr_ann_pred
+             help=interpret_risk(prob_ann))  # Changed from dr_ann_pred
         with col2:
-            st.metric(label="Dokter DNN",
-                     value=f"{dr_dnn_pred*100:.1f}%",
-                     help=interpret_risk(dr_dnn_pred))
+        st.metric(label="Dokter DNN",
+             value=f"{prob_dnn*100:.1f}%",  # Changed from dr_dnn_pred
+             help=interpret_risk(prob_dnn))  # Changed from dr_dnn_pred
         with col3:
-            st.metric(label="Dokter Tab",
-                     value=f"{dr_tab_pred*100:.1f}%",
-                     help=interpret_risk(dr_tab_pred))
+        st.metric(label="Dokter Tab",
+             value=f"{prob_tab*100:.1f}%",  # Changed from dr_tab_pred
+             help=interpret_risk(prob_tab))  # Changed from dr_tab_pred
 
         # Visual comparison
         st.subheader("📊 Perbandingan Hasil")
         fig, ax = plt.subplots()
         models = ["Dokter ANN", "Dokter DNN", "Dokter Tab"]
-        probs = [dr_ann_pred, dr_dnn_pred, dr_tab_pred]
+        probs = [prob_ann, prob_dnn, prob_tab]
         colors = ["#FF9AA2", "#FFB7B2", "#FFDAC1"]
 
         bars = ax.bar(models, probs, color=colors)
@@ -149,7 +149,7 @@ if submitted:
         # Fun health tips
         st.subheader("💡 Tips Sehat ala Dokter AI")
 
-        if any(p >= 0.5 for p in [dr_ann_pred, dr_dnn_pred, dr_tab_pred]):
+        if any(p >= 0.5 for p in [prob_ann, prob_dnn, prob_tab]):
             st.warning("""
             **Waduh, ada tanda-tanda risiko nih!**
             Yuk lakukan ini:
