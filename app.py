@@ -14,10 +14,10 @@ from datetime import datetime
 st.set_page_config(page_title="Cek Risiko Diabetes Yuk!", layout="centered")
 
 # Fun header
-st.title("🩺 Cek Risiko Diabetes ala Dokter AI")
+st.title("🩺 Cek Risiko Diabetes")
 st.markdown("""
 Ayo cek seberapa besar risiko diabetes kamu!
-Aplikasi ini punya 3 asisten AI canggih yang akan menganalisis data kamu.
+Aplikasi ini punya 3 asisten canggih yang akan menganalisis data kamu.
 """)
 
 # Load models with error handling
